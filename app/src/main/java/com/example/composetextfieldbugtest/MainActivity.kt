@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -23,24 +24,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
-                Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    var textFieldValue by remember { mutableStateOf("") }
-                    MyTextField(
-                        Modifier
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(MaterialTheme.colors.onSurface.copy(alpha = 0.12f))
-                            .padding(8.dp),
-                        value = textFieldValue,
-                        onValueChange = { textFieldValue = it }
-                    )
-                    Button(
-                        onClick = {
-                            val intent = intent
-                            finish()
-                            startActivity(intent)
-                        },
-                        content = { Text("Restart") }
-                    )
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        var textFieldValue by remember { mutableStateOf("") }
+                        MyTextField(
+                            Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(MaterialTheme.colors.onSurface.copy(alpha = 0.12f))
+                                .padding(8.dp),
+                            value = textFieldValue,
+                            onValueChange = { textFieldValue = it }
+                        )
+                        Button(
+                            modifier = Modifier.padding(top = 16.dp),
+                            onClick = {
+                                val intent = intent
+                                finish()
+                                startActivity(intent)
+                            },
+                            content = { Text("Restart") }
+                        )
+                    }
                 }
             }
         }
