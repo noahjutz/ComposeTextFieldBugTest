@@ -26,17 +26,25 @@ class MainActivity : AppCompatActivity() {
             MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        var textFieldValue by remember { mutableStateOf("") }
+                        var myTextFieldValue by remember { mutableStateOf("") }
                         MyTextField(
                             Modifier
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(MaterialTheme.colors.onSurface.copy(alpha = 0.12f))
                                 .padding(8.dp),
-                            value = textFieldValue,
-                            onValueChange = { textFieldValue = it }
+                            value = myTextFieldValue,
+                            onValueChange = { myTextFieldValue = it }
                         )
+
+                        var materialTextFieldValue by remember { mutableStateOf("") }
+                        TextField(
+                            modifier = Modifier.padding(top = 12.dp),
+                            value = materialTextFieldValue,
+                            onValueChange = { materialTextFieldValue = it }
+                        )
+
                         Button(
-                            modifier = Modifier.padding(top = 16.dp),
+                            modifier = Modifier.padding(top = 12.dp),
                             onClick = {
                                 val intent = intent
                                 finish()
